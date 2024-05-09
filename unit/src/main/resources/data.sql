@@ -1,15 +1,5 @@
-INSERT INTO GENRE VALUES (1,'Drama');
-INSERT INTO GENRE VALUES (2,'Crime');
-INSERT INTO GENRE VALUES (3,'Action');
-INSERT INTO GENRE VALUES (4,'Adventure');
-
-INSERT INTO ACTOR VALUES (1,'Tim Robbins');
-INSERT INTO ACTOR VALUES (2,'Morgan Freeman');
-
-INSERT INTO MOVIE (ID, DIRECTOR, OVERVIEW, TITLE,MINUTES, RATING, RELEASED_YEAR) VALUES (1,'Frank Darabont','Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.','The Shawshank Redemption',142,9.3,1994);
-
-INSERT INTO MOVIE_GENRES VALUES (1,1);
-INSERT INTO MOVIE_GENRES VALUES (2,1);
-
-INSERT INTO MOVIE_ACTORS VALUES (1,1);
-INSERT INTO MOVIE_ACTORS VALUES (2,1);
+runscript from 'classpath:/scripts/data-actors.sql';
+runscript from 'classpath:/scripts/data-genres.sql';
+runscript from 'classpath:/scripts/data-movies.sql';
+runscript from 'classpath:/scripts/data-movies-actors.sql';
+runscript from 'classpath:/scripts/data-movies-genres.sql';
