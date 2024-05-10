@@ -19,3 +19,4 @@ INSERT INTO GENRES (name) VALUES ('Sport');
 INSERT INTO GENRES (name) VALUES ('Thriller');
 INSERT INTO GENRES (name) VALUES ('War');
 INSERT INTO GENRES (name) VALUES ('Western');
+INSERT INTO GENRES (name) VALUES ('Cartoon');
