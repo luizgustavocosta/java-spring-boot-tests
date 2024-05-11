@@ -1,4 +1,4 @@
-package costa.costa.luiz.unit.movie;
+package costa.costa.luiz.unit.movie.application.domain.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

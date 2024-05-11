@@ -2,38 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/basic}">
     <body>
         <div layout:fragment="content">
-            <h1 class="text-center mb-4">Movies</h1>
+            <h1 class="text-center mb-4">Filmes</h1>
 
             <th:block th:insert="~{fragment/success-message.html}"></th:block>
 
             <a th:href="@{/}" class="btn btn-outline-success mb-3" readonly="true" disabled="true">
-                <i class="fas fa-fw fa-user-plus"></i> New genre
+                <i class="fas fa-fw fa-user-plus"></i> Novo filme
             </a>
             <div class="table-responsive">
                 <table class="table table-sm table-bordered">
                     <thead>
                         <tr class="text-center">
                             <th>Id</th>
-                            <th>Title</th>
-                            <th>Genres</th>
-                            <th>Actors</th>
-                            <th>Released Year</th>
-                            <th>Minutes</th>
+                            <th>Título</th>
+                            <th>Gêneros</th>
+                            <th>Atores</th>
+                            <th>Lançamento</th>
+                            <th>Minutos</th>
                             <th>IMDB Rating</th>
-                            <th>Actions</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:if="${#lists.isEmpty(movies)}">
-                            <td class="text-center fw-bold" colspan="10">No records found</td>
+                            <td class="text-center fw-bold" colspan="10">Nenhum registro foi encontrado</td>
                         </tr>
                         <tr class="text-center" th:each="movie: ${movies}">
                             <td th:text="${movie.id}">Id</td>
-                            <td th:text="${movie.title}">Title</td>
-                            <td th:text="${movie.genres}">Genres</td>
-                            <td th:text="${movie.actors}">Actors</td>
-                            <td th:text="${movie.releasedYear}">Released Year</td>
-                            <td th:text="${movie.minutes}">Minutes</td>
+                            <td th:text="${movie.title}">Título</td>
+                            <td th:text="${movie.genres}">Gêneros</td>
+                            <td th:text="${movie.actors}">Atores</td>
+                            <td th:text="${movie.releasedYear}">Lançamento</td>
+                            <td th:text="${movie.minutes}">Minutos</td>
                             <td th:text="${movie.rating}">IMDB Rating</td>
                             <td>
                                 <div class="btn-group">
@@ -48,25 +48,51 @@
                         </tr>
                     </tbody>
                 </table>
+                <nav aria-label="Pagination" th:if="${totalPages > 0}">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                            <a th:replace="~{fragment/movies-paging :: paging(1, '<<', 'Primeira página')}"></a>
+                        </li>
+                        <li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
+                            <a th:replace="~{fragment/movies-paging :: paging(${currentPage - 1}, 'Anterior', 'Página anterior')}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                        <li class="page-item" th:classappend="${page == currentPage} ? 'active'"
+                            th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
+                            <a th:replace="~{fragment/movies-paging :: paging(${page}, ${page}, 'Página ' + ${page})}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                        <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                            <a th:replace="~{fragment/movies-paging :: paging(${currentPage + 1},'Próxima', 'Próxima página')}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                            <a th:replace="~{fragment/movies-paging :: paging(${totalPages}, '>>', 'Última página')}"></a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <div id="deleteConfirmModal" class="modal" tabindex="-1">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Attention!</h5>
+                            <h5 class="modal-title">Atenção!</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body text-center">
-                            <p>Are you sure you want to delete this movie?</p>
+                            <p>Tem certeza de que deseja excluir este filme?</p>
                         </div>
                         <div class="modal-footer d-block">
                             <div class="row">
                                 <div class="col">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary w-100" data-bs-dismiss="modal">Fechar</button>
                                 </div>
                                 <div class="col">
-                                    <a href="#" class="btn btn-sm btn-outline-danger w-100">Delete</a>
+                                    <a href="#" class="btn btn-sm btn-outline-danger w-100">Excluir</a>
                                 </div>
                             </div>
                         </div>
