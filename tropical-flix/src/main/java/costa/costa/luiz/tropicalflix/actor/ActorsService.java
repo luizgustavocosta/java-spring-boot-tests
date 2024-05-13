@@ -19,7 +19,7 @@ import java.util.Set;
     }
 
     List<Actor> findAll(PageRequest pageRequest) {
-        return actorRepositoryJPA.findAllByOrderByNameAsc(pageRequest);
+        return actorRepositoryJPA.findAll(pageRequest).toList();
     }
 
     long count() {

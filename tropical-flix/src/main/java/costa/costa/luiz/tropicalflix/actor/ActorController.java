@@ -20,7 +20,7 @@ class ActorController {
         this.actorsService = actorsService;
     }
 
-    @GetMapping("/ui/actors")
+    @GetMapping("/api/v1/actors")
     ResponseEntity<List<Actor>> findAll(HttpServletResponse response, @RequestParam(defaultValue = "1") String page, @RequestParam(defaultValue = "10") String size) {
         return ResponseEntity.ok(
                 actorsService.findAll(
