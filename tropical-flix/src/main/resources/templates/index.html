@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/layout/basic}">
     <body>
         <div layout:fragment="content">
-
             <div class="p-5 mb-4 bg-light rounded-3">
                 <div class="container-fluid py-3">
-                    <h1 class="display-5 fw-bold">IMDB Top 1000 filmes</h1>
-                    <p class="col-md-8 fs-4">
-                        CRUD para exercitar testes no Spring Boot<br>
-                        Dataset obtido em Kaggel.com
-                    </p>
+                    <h1 class="display-5 fw-bold">Catálogo com o filme que você quer assistir</h1>
+                </div>
+                <div>
+                    <tr class="text-center" th:each="cover: ${covers}">
+                        <td><img th:src="${cover}"/></td>
+                    </tr>
                 </div>
             </div>
 
@@ -37,7 +37,6 @@
                         </ul>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="h-100 p-5 bg-light border rounded-3">
                         <h2>Features</h2>

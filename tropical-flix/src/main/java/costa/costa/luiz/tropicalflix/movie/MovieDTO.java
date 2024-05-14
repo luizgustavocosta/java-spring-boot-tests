@@ -6,10 +6,10 @@ import costa.costa.luiz.tropicalflix.genre.Genre;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record MovieDTO(Long id, String title, int releasedYear, int minutes, double rating, String overview,
+record MovieDTO(Long id, String title, int releasedYear, int minutes, double rating, String overview,
                        String director, Set<Actor> actors, Set<Genre> genres, String joinedActors,
                        String joinedGenres) {
-    static MovieDTO convertToDTO(Movie movie) {
+    static MovieDTO toDTO(Movie movie) {
         return new MovieDTO(movie.getId(), movie.getTitle(), movie.getReleasedYear(), movie.getMinutes(),
                 movie.getRating(), movie.getOverview(), movie.getDirector(), movie.getActors(), movie.getGenres(), null, null);
     }

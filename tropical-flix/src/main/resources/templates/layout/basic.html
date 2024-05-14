@@ -5,9 +5,6 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
         <link th:href="@{/vendors/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/vendors/fontawesome/css/all.min.css}" rel="stylesheet">
     </head>
@@ -18,14 +15,14 @@
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a th:href="@{/}" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-                            <h2>TropicalFlix</h2>
+                            <img th:src="@{/imgs/tropicalflix.png}" size=""/>
                         </a>
 
                         <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                             <li>
-                                <a th:href="@{/ui/genres}" class="nav-link text-white text-center">
+                                <a th:href="@{/ui/subscribe}" class="nav-link text-white text-center">
                                     <i class="fas fa-users d-block fa-lg mx-auto mb-2"></i>
-                                    Gêneros
+                                    Assine
                                 </a>
                             </li>
                         </ul>
@@ -34,6 +31,14 @@
                                 <a th:href="@{/ui/movies}" class="nav-link text-white text-center">
                                     <i class="fas fa-users d-block fa-lg mx-auto mb-2"></i>
                                     Filmes
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                            <li>
+                                <a th:href="@{/ui/genres}" class="nav-link text-white text-center">
+                                    <i class="fas fa-users d-block fa-lg mx-auto mb-2"></i>
+                                    Gêneros
                                 </a>
                             </li>
                         </ul>

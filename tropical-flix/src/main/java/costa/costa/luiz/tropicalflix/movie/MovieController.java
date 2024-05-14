@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
-public class MovieController {
+@RequestMapping("/api/v1/movies")
+class MovieController {
 
     private final MovieService service;
 
@@ -22,7 +22,7 @@ public class MovieController {
 
     @GetMapping("/{id}")
     ResponseEntity<MovieDTO> byId(@PathVariable("id") String id) {
-        return ResponseEntity.ok(MovieDTO.convertToDTO(service.findById(Long.valueOf(id))));
+        return ResponseEntity.ok(MovieDTO.toDTO(service.findById(Long.valueOf(id))));
     }
 
     @GetMapping
@@ -31,7 +31,7 @@ public class MovieController {
         List<MovieDTO> movies = service.findAll(PageRequest.of(Integer.parseInt(page) - 1,
                         Integer.parseInt(size)))
                 .stream()
-                .map(MovieDTO::convertToDTO)
+                .map(MovieDTO::toDTO)
                 .toList();
         return ResponseEntity.ok(movies);
     }

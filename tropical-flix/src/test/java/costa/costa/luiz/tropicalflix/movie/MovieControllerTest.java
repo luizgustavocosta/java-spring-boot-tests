@@ -1,8 +1,5 @@
-package costa.costa.luiz.tropicalflix.movie.adapter.in.rest;
+package costa.costa.luiz.tropicalflix.movie;
 
-import costa.costa.luiz.tropicalflix.movie.Movie;
-import costa.costa.luiz.tropicalflix.movie.MovieController;
-import costa.costa.luiz.tropicalflix.movie.MovieService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(MovieController.class)
 class MovieControllerTest {
 
+    private static final String URL_TEMPLATE_V1 = "/api/v1/movies";
     @MockBean
     MovieService movieService;
 
@@ -35,7 +33,7 @@ class MovieControllerTest {
         var movie = new Movie();
         movie.setTitle(title);
         when(movieService.findById(1L)).thenReturn(movie);
-        mockMvc.perform(get("/movies/1"))
+        mockMvc.perform(get(URL_TEMPLATE_V1 + "/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value(title))
                 .andDo(print());
@@ -49,10 +47,10 @@ class MovieControllerTest {
         movie.setTitle("Rocky 1");
         var movies = List.of(movie);
         when(movieService.findAll(any(PageRequest.class))).thenReturn(movies);
-        mockMvc.perform(get("/movies"))
+        mockMvc.perform(get(URL_TEMPLATE_V1))
                 .andExpectAll(
-                    status().isOk(),
-                    jsonPath("$[0].title").isNotEmpty()
+                        status().isOk(),
+                        jsonPath("$[0].title").isNotEmpty()
                 );
     }
 }

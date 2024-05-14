@@ -30,7 +30,7 @@
                                     <a th:href="@{/ui/genres/{id}(id=${genre.id})}" class="btn btn-sm btn-outline-primary">
                                         <i class="fas fa-fw fa-pencil-alt"></i>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" th:attr="data-bs-href=@{/ui/genres/{id}/delete(id=${genre.id})}">
+                                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" th:attr="data-bs-href=@{/ui/genres/delete/{id}(id=${genre.id})}">
                                         <i class="fas fa-fw fa-trash-alt"></i>
                                     </button>
                                 </div>

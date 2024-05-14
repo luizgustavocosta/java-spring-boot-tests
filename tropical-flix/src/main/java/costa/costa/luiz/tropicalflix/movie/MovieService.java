@@ -8,23 +8,25 @@ import java.util.List;
 @Service
 public class MovieService {
 
-    private final MovieRepositoryJPA movieRepositoryJPA;
+    private final MovieRepositoryJPA repository;
 
-    public MovieService(MovieRepositoryJPA movieRepositoryJPA) {
-        this.movieRepositoryJPA = movieRepositoryJPA;
+    public MovieService(MovieRepositoryJPA repository) {
+        this.repository = repository;
     }
 
     public Movie findById(Long id) {
-        return movieRepositoryJPA.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow();
     }
 
     public List<Movie> findAll(PageRequest pageRequest) {
-        return movieRepositoryJPA.findAll(pageRequest).toList();
+        return repository.findAll(pageRequest).toList();
     }
 
-    public Movie save(costa.costa.luiz.tropicalflix.movie.MovieDTO movieDTO) {
-        throw new IllegalStateException("Not implemented!");
+    public long count() {
+        return repository.count();
     }
 
-
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }
