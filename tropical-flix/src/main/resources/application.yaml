@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: TropicalFlix
+  threads:
+    virtual:
+      enabled: true
+application:
+  pagination:
+    page-size: 10

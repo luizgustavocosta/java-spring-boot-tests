@@ -12,3 +12,8 @@ https://www.youtube.com/watch?v=e3kgfcO0af4
 Dan Vega https://www.youtube.com/watch?v=B1d95I7-zsw
 Amigos code - https://www.youtube.com/watch?v=9SGDpanrc8U
 Gateway - https://spring.io/guides/gs/gateway
+
+
+
+docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=Tropicalflix -e MYSQL_USER=root -e MYSQL_PASSWORD=password --name=mysql mysql/mysql-server:8.0.32
+docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=Tropicalflix -e MYSQL_USER=root -e MYSQL_PASSWORD=password mysql/mysql-server:8.0.32

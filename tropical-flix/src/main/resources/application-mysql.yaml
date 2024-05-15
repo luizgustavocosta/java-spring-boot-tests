@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/Tropicalflix?createDatabaseIfNotExist=true
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+    defer-datasource-initialization: false
+  sql:
+    init:
+      schema-locations: classpath:/database/scripts/mysql/schema.sql
+      data-locations: classpath:/database/scripts/data-actors.sql, classpath:/database/scripts/data-genres.sql, classpath:/database/scripts/data-movies.sql, classpath:/database/scripts/data-movies-actors.sql, classpath:/database/scripts/data-movies-genres.sql
+      mode: always
