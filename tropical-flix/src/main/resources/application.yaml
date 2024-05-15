@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: TropicalFlix
+  threads:
+    virtual:
+      enabled: true
+  jpa:
+    open-in-view: false
+application:
+  pagination:
+    page-size: 10

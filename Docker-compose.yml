@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+  tropicalDB:
+    image: "tropicalflix_db:0.0.1"
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_USER: "root"
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE : "Tropicalflix"
+    ports:
+      - "3306:3306"
