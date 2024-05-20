@@ -1,4 +1,4 @@
-package com.costa.luiz.tropicalflix.cucumber;
+package com.costa.luiz.tropicalflix.more.cucumber;
 
 import com.costa.luiz.tropicalflix.movie.MovieDTO;
 import io.cucumber.java.en.Then;
@@ -20,7 +20,6 @@ public class MovieStepDefinitions {
     @Autowired
     private TropicalFlixHttpClient bagHttpClient;
 
-//    @When("^I put (\\d+) (\\w+) in the bag$")
     @When("^the client calls /api/v1/movies$")
     public void i_put_something_in_the_bag() {
 //        IntStream.range(0, quantity)
@@ -32,6 +31,8 @@ public class MovieStepDefinitions {
     @Then("^the client receives status code of (\\d+)$")
     public void the_bag_should_contain_only_something(final int code) {
 //        assertNumberOfTimes(quantity, something, true);
+
+
     }
 
     @Then("^the client receives the data$")

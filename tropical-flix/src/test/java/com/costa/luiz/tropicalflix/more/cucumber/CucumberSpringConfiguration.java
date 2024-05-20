@@ -1,4 +1,4 @@
-package com.costa.luiz.tropicalflix.cucumber;
+package com.costa.luiz.tropicalflix.more.cucumber;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -122,4 +122,83 @@ public class Movie {
     public void setActors(Set<Actor> actors) {
         this.actors = actors;
     }
+
+
+    public static final class MovieBuilder {
+        private Long id;
+        private String title;
+        private int releasedYear;
+        private int minutes;
+        private Set<Genre> genres;
+        private double rating;
+        private String overview;
+        private String director;
+        private Set<Actor> actors;
+
+        private MovieBuilder() {
+        }
+
+        public static MovieBuilder aMovie() {
+            return new MovieBuilder();
+        }
+
+        public MovieBuilder withId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public MovieBuilder withTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public MovieBuilder withReleasedYear(int releasedYear) {
+            this.releasedYear = releasedYear;
+            return this;
+        }
+
+        public MovieBuilder withMinutes(int minutes) {
+            this.minutes = minutes;
+            return this;
+        }
+
+        public MovieBuilder withGenres(Set<Genre> genres) {
+            this.genres = genres;
+            return this;
+        }
+
+        public MovieBuilder withRating(double rating) {
+            this.rating = rating;
+            return this;
+        }
+
+        public MovieBuilder withOverview(String overview) {
+            this.overview = overview;
+            return this;
+        }
+
+        public MovieBuilder withDirector(String director) {
+            this.director = director;
+            return this;
+        }
+
+        public MovieBuilder withActors(Set<Actor> actors) {
+            this.actors = actors;
+            return this;
+        }
+
+        public Movie build() {
+            Movie movie = new Movie();
+            movie.setId(id);
+            movie.setTitle(title);
+            movie.setReleasedYear(releasedYear);
+            movie.setMinutes(minutes);
+            movie.setGenres(genres);
+            movie.setRating(rating);
+            movie.setOverview(overview);
+            movie.setDirector(director);
+            movie.setActors(actors);
+            return movie;
+        }
+    }
 }

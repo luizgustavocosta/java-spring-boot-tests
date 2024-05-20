@@ -1,4 +1,4 @@
-package com.costa.luiz.tropicalflix.cucumber;
+package com.costa.luiz.tropicalflix.more.cucumber;
 
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.annotation.Scope;
@@ -13,14 +13,14 @@ import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
 public class TropicalFlixHttpClient {
 
     private final String SERVER_URL = "http://localhost";
-    private final String THINGS_ENDPOINT = "/api/v1/movies";
+    private final String MOVIES_ENDPOINT = "/api/v1/movies";
 
     @LocalServerPort
     private int port;
     private final RestTemplate restTemplate = new RestTemplate();
 
     private String thingsEndpoint() {
-        return SERVER_URL + ":" + port + THINGS_ENDPOINT;
+        return SERVER_URL + ":" + port + MOVIES_ENDPOINT;
     }
 
     public int put(final String something) {

@@ -39,3 +39,6 @@ docker run -d -p 3306:3306 --name tropicalflixDB -e MYSQL_USER=root -e MYSQL_ROO
 https://serverfault.com/questions/793058/can-not-access-mysql-docker
 
 Gatling - mvn gatling:test
+
+https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html
+https://reflectoring.io/assertj-lists/

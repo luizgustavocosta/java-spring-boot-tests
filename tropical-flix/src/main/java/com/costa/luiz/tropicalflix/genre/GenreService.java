@@ -1,5 +1,6 @@
 package com.costa.luiz.tropicalflix.genre;
 
+import com.costa.luiz.tropicalflix.shared.NonExistingEntity;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +23,12 @@ class GenreService {
         return repositoryJPA.count();
     }
 
-    public void save(Genre genre) {
-        repositoryJPA.save(genre);
+    public Genre save(Genre genre) {
+        return repositoryJPA.save(genre);
     }
 
     public Genre findById(long id) {
-        return repositoryJPA.findById(id).orElseThrow();
+        return repositoryJPA.findById(id).orElseThrow(NonExistingEntity::new);
     }
 
     public void deleteById(long id) {

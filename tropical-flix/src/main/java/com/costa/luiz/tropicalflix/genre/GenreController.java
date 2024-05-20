@@ -3,6 +3,7 @@ package com.costa.luiz.tropicalflix.genre;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,5 +50,4 @@ class GenreController {
     void create(@RequestBody GenreDTO genreDTO) {
         service.save(GenreDTO.toGenre(genreDTO));
     }
-
 }

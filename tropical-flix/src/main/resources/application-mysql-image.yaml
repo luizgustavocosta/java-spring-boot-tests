@@ -5,7 +5,11 @@ spring:
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      maximum-pool-size: 100
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 120000
+      connectionTimeout: 300000
+      leakDetectionThreshold: 300000
   jpa:
     show-sql: false
     defer-datasource-initialization: false
