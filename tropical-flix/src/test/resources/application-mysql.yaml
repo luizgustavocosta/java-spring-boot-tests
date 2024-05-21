@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/Tropicalflix
+    username: wrongName
+    password: wrongPassword
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: false
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: none

@@ -33,3 +33,5 @@ build/
 .vscode/
 allure-results
 .allure
+/src/test/k6/summary.html
+/src/test/k6/test.json

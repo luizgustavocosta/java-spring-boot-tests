@@ -36,9 +36,21 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=Tro
 docker build -t tropicalflix_db:0.0.1 .
 docker run -d -p 3306:3306 --name tropicalflixDB -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD=password tropicalflix_db:0.0.1
 
+JMeter
+mvn clean verify
+
+K6 - /Users/luizcosta/workspace/java-spring-boot-tests/tropical-flix/src/test/k6
+k6 run --out json=test.json load_test.js
+
+mvn 
+
+https://eltonminetto.dev/post/2024-01-11-load-test-k6/
+
 https://serverfault.com/questions/793058/can-not-access-mysql-docker
 
 Gatling - mvn gatling:test
 
 https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html
 https://reflectoring.io/assertj-lists/
+
+https://digma.ai/the-spring-way-of-doing-things-9-ways-to-improve-your-spring-boot-skills/

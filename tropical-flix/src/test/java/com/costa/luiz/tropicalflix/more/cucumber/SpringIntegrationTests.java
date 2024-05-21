@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty",
                 "html:target/cucumber/index.html"
         },
-        extraGlue = "com.costa.luiz.tropicalflix.cucumber")
+        extraGlue = "com.costa.luiz.tropicalflix.more.cucumber")
 public class SpringIntegrationTests {
 
 }

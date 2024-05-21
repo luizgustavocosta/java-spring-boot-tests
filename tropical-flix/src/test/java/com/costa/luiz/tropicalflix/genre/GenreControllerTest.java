@@ -27,6 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -36,9 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 class GenreControllerTest {
 
     // Standalone
-
     private MockMvc mockMvc;
-
     @Mock
     private GenreService genreService;
 
@@ -107,7 +106,7 @@ class GenreControllerTest {
     @Test
     @DisplayName("Create a new genre")
     void create() throws Exception {
-        doNothing().when(genreService).save(any(Genre.class));
+        //when(genreService).save(any(Genre.class));
 
         var response = mockMvc.perform(
                 post(ENDPOINT)
@@ -118,7 +117,7 @@ class GenreControllerTest {
                 .andReturn()
                 .getResponse();
 
-        Assertions.assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 
         var genreServiceArgumentCaptor = ArgumentCaptor.forClass(Genre.class);
         verify(genreService).save(genreServiceArgumentCaptor.capture());

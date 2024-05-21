@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
     <groupId>costa.costa.luiz</groupId>
     <artifactId>tropical-flix</artifactId>
@@ -23,13 +23,21 @@
         <junit.maven.surefire.plugin.version>2.19.1</junit.maven.surefire.plugin.version>
         <junit.platform.surefire.provider.version>1.1.0</junit.platform.surefire.provider.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
+        <gatling.version>3.11.2</gatling.version>
+        <gatling.plugin.version>4.5.0</gatling.plugin.version>
+        <testcontainers.version>1.19.8</testcontainers.version>
+        <testdbunit.version>1.3.0</testdbunit.version>
+        <dbunit.version>2.6.0</dbunit.version>
+<!--        <jmeter.version>3.6.0</jmeter.version>-->
+        <jacoco.version>0.8.12</jacoco.version>
+        <failsafe.version>3.2.5</failsafe.version>
+        <surefire.version>3.2.5</surefire.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -63,16 +71,17 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!-- Gatling -->
         <dependency>
             <groupId>io.gatling.highcharts</groupId>
             <artifactId>gatling-charts-highcharts</artifactId>
-            <version>3.11.2</version>
+            <version>${gatling.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.gatling</groupId>
             <artifactId>gatling-app</artifactId>
-            <version>3.11.2</version>
+            <version>${gatling.version}</version>
         </dependency>
         <!-- Cucumber -->
         <dependency>
@@ -96,36 +105,44 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
-            <version>1.19.8</version>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
-            <version>1.19.8</version>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>1.19.8</version>
+            <version>${testcontainers.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.github.springtestdbunit</groupId>
             <artifactId>spring-test-dbunit</artifactId>
-            <version>1.3.0</version>
+            <version>${testdbunit.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
-            <version>2.6.0</version>
+            <version>${dbunit.version}</version>
             <scope>compile</scope>
         </dependency>
-
-
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -140,10 +157,10 @@
             <plugin>
                 <groupId>io.gatling</groupId>
                 <artifactId>gatling-maven-plugin</artifactId>
-                <version>4.5.0</version>
+                <version>${gatling.plugin.version}</version>
                 <configuration>
                     <runMultipleSimulations>true</runMultipleSimulations>
-                    <simulationClass>com.costa.luiz.tropicalflix.gatlin.TropicalFlixSimulation</simulationClass>
+                    <simulationClass>com.costa.luiz.tropicalflix.more.gatlin.TropicalFlixSimulation</simulationClass>
                 </configuration>
             </plugin>
 
@@ -177,16 +194,16 @@
                 <configuration>
                     <generateReports>true</generateReports>
                     <ignoreResultFailures>true</ignoreResultFailures>
-                    <jMeterProcessJVMSettings>
-                        <xms>512</xms>
-                        <xmx>512</xmx>
-                    </jMeterProcessJVMSettings>
+<!--                    <jMeterProcessJVMSettings>-->
+<!--                        <xms>512</xms>-->
+<!--                        <xmx>512</xmx>-->
+<!--                    </jMeterProcessJVMSettings>-->
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -205,7 +222,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>${failsafe.version}</version>
                 <configuration>
                     <includes>
                         <include>**IT.java</include>
@@ -236,7 +253,6 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M5</version>
                 </plugin>
-
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>3.0.0</version>
@@ -251,7 +267,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>3.2.5</version>
+                        <version>${failsafe.version}</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -270,9 +286,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>${surefire.version}</version>
             </plugin>
         </plugins>
     </reporting>
-
 </project>
