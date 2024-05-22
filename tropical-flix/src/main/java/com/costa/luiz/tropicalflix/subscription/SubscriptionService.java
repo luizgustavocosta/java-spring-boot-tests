@@ -9,13 +9,16 @@ class SubscriptionService {
 
     private final Logger logger = LoggerFactory.getLogger(SubscriptionService.class);
     private final SubscriptionPublisher subscriptionPublisher;
+    private final FinancialServiceClient financialServiceClient;
 
-    SubscriptionService(SubscriptionPublisher subscriptionPublisher) {
+    SubscriptionService(SubscriptionPublisher subscriptionPublisher, FinancialServiceClient financialServiceClient) {
         this.subscriptionPublisher = subscriptionPublisher;
+        this.financialServiceClient = financialServiceClient;
     }
 
     void triggerSubscriptionWorkflow(StartSubscriptionRequest request) {
         logger.info("{}", Thread.currentThread());
         subscriptionPublisher.publish(request);
+        financialServiceClient.pay();//FIXME
     }
 }

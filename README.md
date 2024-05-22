@@ -54,3 +54,6 @@ https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html
 https://reflectoring.io/assertj-lists/
 
 https://digma.ai/the-spring-way-of-doing-things-9-ways-to-improve-your-spring-boot-skills/
+
+http://localhost:8080/swagger-ui/index.html
+https://www.youtube.com/watch?v=aR580OCEp7w
