@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/ui/genres")
 class GenreWebController implements ThymeleafPagination {
 
+    private static final String REDIRECT_UI_GENRES = "redirect:/ui/genres";
     private final GenreService service;
 
     GenreWebController(GenreService service) {
@@ -47,7 +48,7 @@ class GenreWebController implements ThymeleafPagination {
         service.save(genre);
 
         attributes.addFlashAttribute("message", "Gênero " + genre.getName() + " atualizado com sucesso!");
-        return "redirect:/ui/genres";
+        return REDIRECT_UI_GENRES;
     }
 
     @GetMapping("/{id}")
@@ -66,7 +67,7 @@ class GenreWebController implements ThymeleafPagination {
     String createGenre(@ModelAttribute("genre") GenreDTO genreDTO, RedirectAttributes attributes) {
         service.save(Genre.GenreBuilder.aGenre().withName(genreDTO.name()).build());
         attributes.addFlashAttribute("message", "Gênero " + genreDTO.name() + " criado com sucesso!");
-        return "redirect:/ui/genres";
+        return REDIRECT_UI_GENRES;
     }
 
     @GetMapping("/delete/{id}")
@@ -75,7 +76,7 @@ class GenreWebController implements ThymeleafPagination {
         var genre = service.findById(genreId);
         service.deleteById(genreId);
         attributes.addFlashAttribute("message", "Gênero " + genre.getName() + " excluído com sucesso!");
-        return "redirect:/ui/genres";
+        return REDIRECT_UI_GENRES;
     }
 
 }

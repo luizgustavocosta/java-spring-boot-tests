@@ -9,3 +9,6 @@ spring:
 application:
   pagination:
     page-size: 10
+service:
+  financial:
+    url: http://localhost:8081

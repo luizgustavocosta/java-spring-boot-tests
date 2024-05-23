@@ -13,7 +13,7 @@ class SubscriptionAsyncListener {
 
     @Async
     @EventListener
-    void handle(SubscriptionCreatedEvent event) {
+    public void handle(SubscriptionCreatedEvent event) {
         logger.info("{}", Thread.currentThread());
         if (event.getSource() instanceof StartSubscription startSubscription) {
             logger.info("Time to notify the user via e-mail [{}]", startSubscription.email());

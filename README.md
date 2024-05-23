@@ -36,6 +36,12 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=Tro
 docker build -t tropicalflix_db:0.0.1 .
 docker run -d -p 3306:3306 --name tropicalflixDB -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD=password tropicalflix_db:0.0.1
 
+mvn clean verify
+docker build -t 16bits/financial-service:0.0.1 .
+docker run -p 8081:8081 16bits/financial-service:0.0.1
+docker push  16bits/financial-service:0.0.1
+
+
 JMeter
 mvn clean verify
 
@@ -57,3 +63,7 @@ https://digma.ai/the-spring-way-of-doing-things-9-ways-to-improve-your-spring-bo
 
 http://localhost:8080/swagger-ui/index.html
 https://www.youtube.com/watch?v=aR580OCEp7w
+
+mvn clean verify -Dgatling.test=false
+
+https://github.com/danvega/rest-client-examples/blob/main/src/test/java/dev/danvega/rc/client/PostClientTest.java#L11
