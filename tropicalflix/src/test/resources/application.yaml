@@ -1,0 +1,9 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+service:
+  financial:
+    url: http://localhost:1234
+    payment-path: /api/v1/payments

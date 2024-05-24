@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/basic}">
+    <body>
+        <div layout:fragment="content">
+            <div class="p-5 mb-4 bg-light rounded-3">
+                <div class="container-fluid py-3">
+                    <h1 class="display-5 fw-bold">O streaming com o filme que você quer assistir</h1>
+                </div>
+                <div>
+                    <tr class="text-center" th:each="cover: ${covers}">
+                        <td><img th:src="${cover}"/></td>
+                    </tr>
+                </div>
+            </div>
+
+            <div class="row align-items-md-stretch">
+                <div class="col-md-4">
+                    <div class="h-100 p-5 bg-light rounded-3">
+                        <h2>Tech Stack</h2>
+                        <ul>
+                            <li>Spring Boot</li>
+                            <li>Spring Data JPA</li>
+                            <li>Thymeleaf</li>
+                            <li>H2 Database</li>
+                            <li>JUnit 5</li>
+                            <li>Gatling</li>
+                            <li>JMeter</li>
+                            <li>MySQL</li>
+                            <li>Cucumber</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="h-100 p-5 text-white bg-dark border rounded-3">
+                        <h2>Objetivo</h2>
+                        <ul>
+                            <li>Boas práticas no testes</li>
+                            <li>Evitar pitfalls</li>
+                            <li>Compartilhar experiências</li>
+                            <li>Exemplos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <h2>Features</h2>
+                        <ul>
+                            <li>Listar filmes, atores e genêros</li>
+                            <li>Editar ator</li>
+                            <li>Editar gênero</li>
+                            <hr>
+                            <li>Editar filme - Próxima release ;)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

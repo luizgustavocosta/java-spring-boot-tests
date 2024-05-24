@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: TropicalFlix
+  threads:
+    virtual:
+      enabled: false
+  jpa:
+    open-in-view: false
+application:
+  pagination:
+    page-size: 10
+service:
+  financial:
+    url: http://localhost:8081
+    payment-path: /api/v1/payments

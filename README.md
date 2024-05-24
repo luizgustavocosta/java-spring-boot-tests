@@ -36,16 +36,24 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=Tro
 docker build -t tropicalflix_db:0.0.1 .
 docker run -d -p 3306:3306 --name tropicalflixDB -e MYSQL_USER=root -e MYSQL_ROOT_PASSWORD=password tropicalflix_db:0.0.1
 
-mvn clean verify
+mvn clean verify -DskipTest=true/ mvn clean compile
 docker build -t 16bits/financial-service:0.0.1 .
 docker run -p 8081:8081 16bits/financial-service:0.0.1
 docker push  16bits/financial-service:0.0.1
+
+8801:8801
+
+mvn spring-boot:run
+docker build -t 16bits/tropicalflix:0.0.1 .
+docker run -p 8080:8080 -e SPRING_ACTIVE_PROFILES=h2 16bits/tropicalflix:0.0.1
+docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE=h2 16bits/tropicalflix:0.0.1
+
 
 
 JMeter
 mvn clean verify
 
-K6 - /Users/luizcosta/workspace/java-spring-boot-tests/tropical-flix/src/test/k6
+K6 - /Users/luizcosta/workspace/java-spring-boot-tests/tropical/src/test/k6
 k6 run --out json=test.json load_test.js
 
 mvn 
@@ -67,3 +75,9 @@ https://www.youtube.com/watch?v=aR580OCEp7w
 mvn clean verify -Dgatling.test=false
 
 https://github.com/danvega/rest-client-examples/blob/main/src/test/java/dev/danvega/rc/client/PostClientTest.java#L11
+
+https://github.com/rest-assured/rest-assured/wiki/GettingStarted#rest-assured
+https://bootify.io/docs/jpa-relationship-types-with-examples.html
+
+https://github.com/maciejwalkowiak/wiremock-spring-boot
+https://stackoverflow.com/questions/78151993/eof-reached-while-reading-with-spring-restclient-and-wiremock-using-jdkclienth
