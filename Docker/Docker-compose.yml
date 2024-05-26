@@ -17,8 +17,10 @@ services:
       - "3306:3306"
   tropicalflix:
     depends_on:
-      - financialService
-      - tropicalDB
+      financialService:
+        condition: service_started
+      tropicalDB:
+        condition: service_started
     image: "16bits/tropicalflix:0.0.1"
     container_name: "tropicalflix"
     environment:

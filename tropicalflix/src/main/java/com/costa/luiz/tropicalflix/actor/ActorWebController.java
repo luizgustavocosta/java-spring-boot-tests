@@ -1,6 +1,7 @@
 package com.costa.luiz.tropicalflix.actor;
 
 import com.costa.luiz.tropicalflix.shared.ThymeleafPagination;
+import com.costa.luiz.tropicalflix.shared.UIException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/ui/actors")
@@ -28,7 +27,7 @@ class ActorWebController implements ThymeleafPagination {
     ModelAndView findAll(@RequestParam(defaultValue = "1") String page,
                          @RequestParam(defaultValue = "10") String size) {
         int sizeAsInt = Integer.parseInt(size);
-        List<Actor> actors = service.findAll(PageRequest.of(Integer.parseInt(page) - 1, sizeAsInt));
+        var actors = service.findAll(PageRequest.of(Integer.parseInt(page) - 1, sizeAsInt));
         long totalItens = service.count();
         return
                 addPaginationToView("actors",
@@ -41,27 +40,28 @@ class ActorWebController implements ThymeleafPagination {
 
     @GetMapping("/new")
     public ModelAndView showCreateActorForm() {
-        throw new IllegalStateException("{ Feature not ready}", new IllegalStateException());
+        throw new UIException(new IllegalStateException("Feature not ready"));
     }
 
     @GetMapping("/delete/{id}")
     public String deleteActor(@PathVariable String id, @ModelAttribute("actor") Actor actor, RedirectAttributes attributes) {
-        service.deleteById(Long.parseLong(id));
-        attributes.addFlashAttribute("message", "Ator excluído com sucesso!");
-        return "redirect:/ui/actors";
+        try {
+            service.deleteById(Long.parseLong(id));
+            attributes.addFlashAttribute("message", "Ator excluído com sucesso!");
+            return "redirect:/ui/actors";
+        } catch (Exception exception) {
+            throw new UIException(exception);
+        }
     }
 
     @PostMapping("/{id}")
     String updateActor(@PathVariable String id,
-                       @ModelAttribute("actor") Actor actor,
+                       @ModelAttribute("actor") ActorDTO actor,
                        RedirectAttributes attributes) {
 
-        var currentActor = service.findById(Long.valueOf(id));
-        currentActor.setName(actor.getName());
+        service.save(actor);
 
-        service.save(currentActor);
-
-        attributes.addFlashAttribute("message", "Ator " + actor.getName() + " atualizado com sucesso!");
+        attributes.addFlashAttribute("message", "Ator " + actor + " atualizado com sucesso!");
         return "redirect:/ui/actors";
     }
 

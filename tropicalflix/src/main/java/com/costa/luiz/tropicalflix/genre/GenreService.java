@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 class GenreService {
@@ -15,20 +16,27 @@ class GenreService {
         this.repositoryJPA = repositoryJPA;
     }
 
-    public List<Genre> findAll(PageRequest pageable) {
-        return repositoryJPA.findAll(pageable).toList();
+    public List<GenreDTO> findAll(PageRequest pageable) {
+        return repositoryJPA.findAll(pageable)
+                .stream()
+                .map(GenreDTO::toDTO)
+                .toList();
     }
 
     public long count() {
         return repositoryJPA.count();
     }
 
-    public Genre save(Genre genre) {
-        return repositoryJPA.save(genre);
+    public GenreDTO save(GenreDTO genre) {
+        return GenreDTO.toDTO(repositoryJPA.save(Genre.GenreBuilder.aGenre()
+                .withId(genre.id())
+                .withName(genre.name())
+                .build()));
     }
-
-    public Genre findById(long id) {
-        return repositoryJPA.findById(id).orElseThrow(NonExistingEntity::new);
+    public GenreDTO findById(long id) {
+        return repositoryJPA.findById(id)
+                .map(GenreDTO::toDTO)
+                .orElseThrow(NonExistingEntity::new);
     }
 
     public void deleteById(long id) {

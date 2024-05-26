@@ -24,9 +24,6 @@ class ActorController {
                                            @RequestParam(defaultValue = "10") String size) {
         return ResponseEntity.ok(
                 actorService.findAll(
-                        PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(size)))
-                        .stream()
-                        .map(ActorDTO::toDTO)
-                        .toList());
+                        PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(size))));
     }
 }

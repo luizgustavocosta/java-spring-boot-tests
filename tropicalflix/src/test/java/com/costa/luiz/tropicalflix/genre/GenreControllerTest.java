@@ -3,7 +3,6 @@ package com.costa.luiz.tropicalflix.genre;
 import com.costa.luiz.tropicalflix.shared.ExceptionHandlerController;
 import com.costa.luiz.tropicalflix.shared.NonExistingEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,9 +24,7 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -77,14 +74,11 @@ class GenreControllerTest {
     @Test
     @DisplayName("Find existing genre by id")
     void findExistingGenreById() throws Exception {
-        var genre = Genre.GenreBuilder.aGenre()
-                .withId(10L)
-                .withName("Terror")
-                .build();
+        var genre = new GenreDTO(10L, "Terror");
         given(genreService.findById(any(Long.class))).willReturn(genre);
 
         var response = mockMvc.perform(
-                get(ENDPOINT+"/10")
+                get(ENDPOINT + "/10")
                         .accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
@@ -106,29 +100,27 @@ class GenreControllerTest {
     @Test
     @DisplayName("Create a new genre")
     void create() throws Exception {
-        //when(genreService).save(any(Genre.class));
-
         var response = mockMvc.perform(
-                post(ENDPOINT)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonGenre.write(new GenreDTO(null, "Cartoon")).getJson()))
+                        post(ENDPOINT)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonGenre.write(new GenreDTO(null, "Cartoon")).getJson()))
                 .andDo(print())
                 .andReturn()
                 .getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 
-        var genreServiceArgumentCaptor = ArgumentCaptor.forClass(Genre.class);
+        var genreServiceArgumentCaptor = ArgumentCaptor.forClass(GenreDTO.class);
         verify(genreService).save(genreServiceArgumentCaptor.capture());
         assertThat(genreServiceArgumentCaptor.getValue()).extracting("id", "name").isNotNull();
 
     }
 
-    List<Genre> genres() {
+    List<GenreDTO> genres() {
         return List.of(
-                Genre.GenreBuilder.aGenre().withId(1L).withName("Action").build(),
-                Genre.GenreBuilder.aGenre().withId(2L).withName("Comedy").build()
+                new GenreDTO(1L, "Action"),
+                new GenreDTO(2L, "Comedy")
         );
     }
 }

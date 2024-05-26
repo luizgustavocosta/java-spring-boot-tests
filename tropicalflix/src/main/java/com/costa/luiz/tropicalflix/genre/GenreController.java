@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.print.Book;
 import java.util.List;
 
 @RestController
@@ -38,10 +37,7 @@ class GenreController {
                                            @RequestParam(defaultValue = "10") String size) {
         return ResponseEntity.ok(
                 service.findAll(
-                                PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(size)))
-                        .stream()
-                        .map(GenreDTO::toDTO)
-                        .toList());
+                                PageRequest.of(Integer.parseInt(page) - 1, Integer.parseInt(size))));
     }
 
     @Operation(summary = "Get a genre by its id")
@@ -53,9 +49,7 @@ class GenreController {
                     content = @Content)})
     @GetMapping("{id}")
     ResponseEntity<GenreDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(
-                GenreDTO.toDTO(service.findById(id))
-        );
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @Operation(summary = "Save a genre")
@@ -66,6 +60,6 @@ class GenreController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     void create(@RequestBody GenreDTO genreDTO) {
-        service.save(GenreDTO.toGenre(genreDTO));
+        service.save(genreDTO);
     }
 }

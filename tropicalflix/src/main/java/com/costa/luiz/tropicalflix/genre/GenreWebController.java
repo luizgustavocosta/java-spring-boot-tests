@@ -1,7 +1,7 @@
 package com.costa.luiz.tropicalflix.genre;
 
-import com.costa.luiz.tropicalflix.actor.Actor;
 import com.costa.luiz.tropicalflix.shared.ThymeleafPagination;
+import com.costa.luiz.tropicalflix.shared.UIException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 class GenreWebController implements ThymeleafPagination {
 
     private static final String REDIRECT_UI_GENRES = "redirect:/ui/genres";
+    private static final String MESSAGE = "message";
+    private static final String GÊNERO = "Gênero ";
     private final GenreService service;
 
     GenreWebController(GenreService service) {
@@ -27,35 +29,44 @@ class GenreWebController implements ThymeleafPagination {
     @GetMapping
     ModelAndView findAll(@RequestParam(defaultValue = "1") String page,
                          @RequestParam(defaultValue = "10") String size) {
-        int sizeAsInt = Integer.parseInt(size);
-        var genres = service.findAll(PageRequest.of(Integer.parseInt(page) - 1, sizeAsInt));
-        long totalItens = service.count();
-        return
-                addPaginationToView("genres",
-                        Integer.parseInt(page),
-                        totalItens,
-                        sizeAsInt,
-                        "genres",
-                        genres);
+        try {
+            int sizeAsInt = Integer.parseInt(size);
+            var genres = service.findAll(PageRequest.of(Integer.parseInt(page) - 1, sizeAsInt));
+            long totalItens = service.count();
+            return
+                    addPaginationToView("genres",
+                            Integer.parseInt(page),
+                            totalItens,
+                            sizeAsInt,
+                            "genres",
+                            genres);
+        } catch (Exception exception) {
+            throw new UIException(exception);
+        }
     }
 
     @PostMapping("/{id}")
     String updateGenre(@PathVariable String id,
-                       @ModelAttribute("actor") Actor actor, RedirectAttributes attributes) {
-
-        var genre = service.findById(Long.parseLong(id));
-        genre.setName(actor.getName());
-        service.save(genre);
-
-        attributes.addFlashAttribute("message", "Gênero " + genre.getName() + " atualizado com sucesso!");
-        return REDIRECT_UI_GENRES;
+                       @ModelAttribute("genre") GenreDTO genreDTO, RedirectAttributes attributes) {
+        try {
+            service.save(genreDTO);
+            attributes.addFlashAttribute(MESSAGE, GÊNERO + genreDTO.name() + " atualizado com sucesso!");
+            return REDIRECT_UI_GENRES;
+        } catch (Exception exception) {
+            throw new UIException(exception);
+        }
     }
 
     @GetMapping("/{id}")
     ModelAndView editGenre(@PathVariable String id) {
-        return new ModelAndView("edit-genre")
-                .addObject("genre",
-                        service.findById(Long.parseLong(id)));
+        try {
+            return new ModelAndView("edit-genre")
+                    .addObject("genre",
+                            service.findById(Long.parseLong(id)));
+
+        } catch (Exception exception) {
+            throw new UIException(exception);
+        }
     }
 
     @GetMapping("/new")
@@ -65,18 +76,24 @@ class GenreWebController implements ThymeleafPagination {
 
     @PostMapping("/new")
     String createGenre(@ModelAttribute("genre") GenreDTO genreDTO, RedirectAttributes attributes) {
-        service.save(Genre.GenreBuilder.aGenre().withName(genreDTO.name()).build());
-        attributes.addFlashAttribute("message", "Gênero " + genreDTO.name() + " criado com sucesso!");
-        return REDIRECT_UI_GENRES;
+        try {
+            service.save(genreDTO);
+            attributes.addFlashAttribute(MESSAGE, GÊNERO + genreDTO.name() + " criado com sucesso!");
+            return REDIRECT_UI_GENRES;
+        } catch (Exception exception) {
+            throw new UIException(exception);
+        }
     }
 
     @GetMapping("/delete/{id}")
     public String deleteGenre(@PathVariable String id, RedirectAttributes attributes) {
-        long genreId = Long.parseLong(id);
-        var genre = service.findById(genreId);
-        service.deleteById(genreId);
-        attributes.addFlashAttribute("message", "Gênero " + genre.getName() + " excluído com sucesso!");
-        return REDIRECT_UI_GENRES;
+        try {
+            service.deleteById(Long.parseLong(id));
+            attributes.addFlashAttribute(MESSAGE, GÊNERO +" excluído com sucesso!");
+            return REDIRECT_UI_GENRES;
+        } catch (Exception exception) {
+            throw new UIException(exception);
+        }
     }
 
 }

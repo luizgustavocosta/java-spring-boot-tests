@@ -53,7 +53,7 @@ class GenreControllerSpringBootTest {
         var id = 42L;
         var name = "Western";
         given(genreService.findById(id))
-                .willReturn(Genre.GenreBuilder.aGenre().withId(id).withName(name).build());
+                .willReturn(new GenreDTO(id, name));
 
         var genreResponse = restTemplate
                 .getForEntity("/api/v1/genres/" + id, GenreDTO.class);

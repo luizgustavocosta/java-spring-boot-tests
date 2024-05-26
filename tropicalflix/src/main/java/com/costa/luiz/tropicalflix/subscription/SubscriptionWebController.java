@@ -1,5 +1,6 @@
 package com.costa.luiz.tropicalflix.subscription;
 
+import com.costa.luiz.tropicalflix.shared.UIException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,9 @@ class SubscriptionWebController {
 
     @GetMapping
     ModelAndView subscribe() {
-        ModelAndView modelAndView = new ModelAndView("subscribe");
-        modelAndView.addObject("subscription", new StartSubscriptionRequest(
+        var modelAndView = new ModelAndView("subscribe");
+        modelAndView.addObject("subscription",
+                new StartSubscriptionRequest(
                 null, "42,00", "3 meses", "Brasil"));
         return modelAndView;
     }
@@ -31,9 +33,13 @@ class SubscriptionWebController {
     String startSubscription(
             @ModelAttribute("subscription") StartSubscriptionRequest request,
             RedirectAttributes attributes) {
-        service.triggerSubscriptionWorkflow(request);
-        attributes.addFlashAttribute("message", "Esperando confirmação da instituição financeira");
-        return "redirect:/ui/subscribe";
+        try {
+            service.triggerSubscriptionWorkflow(request);
+            attributes.addFlashAttribute("message", "Esperando confirmação da instituição financeira");
+            return "redirect:/ui/subscribe";
+        } catch (Exception exception) {
+            throw new UIException(exception);
+        }
     }
 
     @PostMapping("/cancel")

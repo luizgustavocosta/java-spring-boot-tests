@@ -61,10 +61,10 @@ class ActorControllerTest {
                 """);
     }
 
-    List<Actor> actors() {
+    List<ActorDTO> actors() {
         return List.of(
-                Actor.ActorBuilder.anActor().withId(10L).withName("Didi").build(),
-                Actor.ActorBuilder.anActor().withId(20L).withName("Mussum").build()
+                new ActorDTO(10L, "Didi"),
+                new ActorDTO(20L, "Mussum")
         );
     }
 }

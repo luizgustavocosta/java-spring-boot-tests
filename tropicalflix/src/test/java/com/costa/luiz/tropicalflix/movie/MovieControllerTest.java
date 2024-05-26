@@ -37,11 +37,8 @@ class MovieControllerTest {
     void byId() throws Exception {
         var title = "Mad Max";
 
-        when(movieService.findById(1L)).thenReturn(Movie.MovieBuilder.aMovie()
-                .withTitle(title)
-                .withMinutes(88)
-                .withRating(6.8)
-                .build());
+        when(movieService.findById(1L)).thenReturn(new MovieDTO(null,
+                title, 2000, 88, 6.8, null, null, null, null, null, null));
 
         mockMvc.perform(get(ENDPOINT + "/1"))
                 .andExpectAll(
@@ -68,14 +65,13 @@ class MovieControllerTest {
                 );
     }
 
-    private List<Movie> createMovies() {
+    private List<MovieDTO> createMovies() {
         return List.of(
-                Movie.MovieBuilder.aMovie().withId(1L).withTitle("Toy Story").build(),
-                Movie.MovieBuilder.aMovie().withId(2L).withTitle("Toy Story II").build(),
-                Movie.MovieBuilder.aMovie().withId(3L).withTitle("Toy Story III")
-                        .withRating(8.3)
-                        .build()
-        );
+                new MovieDTO(1L, "Toy Story", 1990, 100, 5, null, null, null, null, null, null),
+                new MovieDTO(2L, "Toy Story II", 1991, 100, 6, null, null, null, null, null, null),
+                new MovieDTO(3L, "Toy Story III", 1992, 100,
+                        8.3, null, null, null, null, null, null
+                ));
 
     }
 }

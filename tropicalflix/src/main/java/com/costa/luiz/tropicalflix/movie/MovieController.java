@@ -24,17 +24,13 @@ class MovieController {
 
     @GetMapping("/{id}")
     ResponseEntity<MovieDTO> byId(@PathVariable("id") String id) {
-        return ResponseEntity.ok(MovieDTO.toDTO(service.findById(Long.valueOf(id))));
+        return ResponseEntity.ok(service.findById(Long.valueOf(id)));
     }
 
     @GetMapping
     ResponseEntity<List<MovieDTO>> all(@RequestParam(defaultValue = "1") String page,
                                        @RequestParam(defaultValue = "10") String size) {
-        List<MovieDTO> movies = service.findAll(PageRequest.of(Integer.parseInt(page) - 1,
-                        Integer.parseInt(size)))
-                .stream()
-                .map(MovieDTO::toDTO)
-                .toList();
-        return ResponseEntity.ok(movies);
+        return ResponseEntity.ok(service.findAll(PageRequest.of(Integer.parseInt(page) - 1,
+                Integer.parseInt(size))));
     }
 }

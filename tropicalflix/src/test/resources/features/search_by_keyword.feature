@@ -1,4 +1,4 @@
-Feature: Search by keyword
+Feature: List of all actors
 
   @green
   Scenario: Searching for 'green'

@@ -1,5 +1,6 @@
 package com.costa.luiz.tropicalflix.movie;
 
+import com.costa.luiz.tropicalflix.shared.NonExistingEntity;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,18 @@ public class MovieService {
         this.repository = repository;
     }
 
-    public Movie findById(Long id) {
-        return repository.findById(id).orElseThrow();
+    public MovieDTO findById(Long id) {
+        return
+                repository.findById(id)
+                        .map(MovieDTO::toDTO)
+                        .orElseThrow(NonExistingEntity::new);
     }
 
-    public List<Movie> findAll(PageRequest pageRequest) {
-        return repository.findAll(pageRequest).toList();
+    public List<MovieDTO> findAll(PageRequest pageRequest) {
+        return repository.findAll(pageRequest)
+                .stream()
+                .map(MovieDTO::toDTO)
+                .toList();
     }
 
     public long count() {

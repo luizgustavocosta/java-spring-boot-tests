@@ -7,3 +7,4 @@ service:
   financial:
     url: http://localhost:1234
     payment-path: /api/v1/payments
+    test: "luizcosta"

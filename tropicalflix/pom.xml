@@ -36,6 +36,7 @@
         <serenity.maven.version>4.1.12</serenity.maven.version>
         <junit-platform-suite.version>1.10.2</junit-platform-suite.version>
         <cucumber-junit-platform-engine.version>7.16.1</cucumber-junit-platform-engine.version>
+        <junit-vintage-engine.version>5.10.2</junit-vintage-engine.version>
         <tags></tags>
     </properties>
     <dependencies>
@@ -56,6 +57,10 @@
                 <exclusion>
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -82,12 +87,14 @@
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
+        <!-- Custom wiremock        -->
         <dependency>
             <groupId>com.maciejwalkowiak.spring</groupId>
             <artifactId>wiremock-spring-boot</artifactId>
             <version>2.1.2</version>
             <scope>test</scope>
         </dependency>
+        <!-- MySQL       -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
@@ -105,36 +112,29 @@
             <artifactId>gatling-app</artifactId>
             <version>${gatling.version}</version>
         </dependency>
-        <!-- Cucumber -->
-<!--        <dependency>-->
-<!--            <groupId>io.cucumber</groupId>-->
-<!--            <artifactId>cucumber-java</artifactId>-->
-<!--            <version>${cucumber.version}</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.cucumber</groupId>-->
-<!--            <artifactId>cucumber-junit</artifactId>-->
-<!--            <version>${cucumber.version}</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.cucumber</groupId>-->
-<!--            <artifactId>cucumber-spring</artifactId>-->
-<!--            <version>${cucumber.version}</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
         <!--  Serenity Report      -->
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
-            <version>${serenity.maven.version}</version>
+            <version>${serenity.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-cucumber</artifactId>
-            <version>${serenity.maven.version}</version>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-screenplay</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-screenplay-webdriver</artifactId>
+            <version>${serenity.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -145,15 +145,9 @@
         </dependency>
         <dependency>
             <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite</artifactId>
+            <artifactId>junit-platform-launcher</artifactId>
             <version>${junit-platform-suite.version}</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -161,8 +155,31 @@
             <version>${cucumber-junit-platform-engine.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!--        Testcontainers-->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>${junit-platform-suite.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-vintage-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit-vintage-engine.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-api</artifactId>
+            <version>4.20.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!--  Testcontainers-->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
@@ -182,6 +199,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--  DBUnit      -->
+        <dependency>
             <groupId>com.github.springtestdbunit</groupId>
             <artifactId>spring-test-dbunit</artifactId>
             <version>${testdbunit.version}</version>
@@ -192,11 +215,6 @@
             <artifactId>dbunit</artifactId>
             <version>${dbunit.version}</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-testcontainers</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -249,10 +267,6 @@
                 <configuration>
                     <generateReports>true</generateReports>
                     <ignoreResultFailures>true</ignoreResultFailures>
-<!--                    <jMeterProcessJVMSettings>-->
-<!--                        <xms>512</xms>-->
-<!--                        <xmx>512</xmx>-->
-<!--                    </jMeterProcessJVMSettings>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -281,8 +295,15 @@
                 <configuration>
                     <includes>
                         <include>**IT.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/Test*.java</include>
+                        <include>**/*TestSuite.java</include>
+                        <include>**/When*.java</include>
                     </includes>
                     <testFailureIgnore>false</testFailureIgnore>
+                    <parallel>classes</parallel>
+                    <parallel>methods</parallel>
+                    <useUnlimitedThreads>true</useUnlimitedThreads>
                 </configuration>
             </plugin>
             <plugin>
@@ -291,6 +312,7 @@
                 <version>${serenity.maven.version}</version>
                 <configuration>
                     <tags>${tags}</tags>
+                    <reports>single-page-html</reports>
                 </configuration>
                 <executions>
                     <execution>
@@ -303,7 +325,7 @@
                 </executions>
             </plugin>
         </plugins>
-        <pluginManagement>
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>

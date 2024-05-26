@@ -1,7 +1,6 @@
 package com.costa.luiz.tropicalflix.shared;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,15 +11,14 @@ class ExceptionHandlerControllerTest {
 
     @Test
     void noSuchElementExceptionHandler() {
-        ModelAndView modelAndView = exceptionHandlerController.noSuchElementExceptionHandler();
+        ModelAndView modelAndView = exceptionHandlerController.uiExceptionHander(new RuntimeException());
         assertEquals("exception", modelAndView.getViewName());
-        assertEquals(HttpStatus.NOT_FOUND.value(), modelAndView.getModel().get("status"));
     }
 
     @Test
     void defaultExceptionHandler() {
         Exception exception = new Exception("Test exception");
-        ModelAndView modelAndView = exceptionHandlerController.defaultExceptionHandler(exception);
+        ModelAndView modelAndView = exceptionHandlerController.uiExceptionHander(exception);
         assertEquals("exception", modelAndView.getViewName());
         assertEquals("Ocorreu o erro " + exception.getLocalizedMessage() + " no processamento", modelAndView.getModel().get("status"));
     }
