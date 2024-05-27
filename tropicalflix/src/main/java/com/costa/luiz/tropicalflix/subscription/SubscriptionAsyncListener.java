@@ -10,11 +10,9 @@ import org.springframework.stereotype.Component;
 class SubscriptionAsyncListener {
 
     private final Logger logger = LoggerFactory.getLogger(SubscriptionAsyncListener.class);
-
     @Async
     @EventListener
     public void handle(SubscriptionCreatedEvent event) {
-        logger.info("{}", Thread.currentThread());
         if (event.getSource() instanceof StartSubscription startSubscription) {
             logger.info("Time to notify the user via e-mail [{}]", startSubscription.email());
         }

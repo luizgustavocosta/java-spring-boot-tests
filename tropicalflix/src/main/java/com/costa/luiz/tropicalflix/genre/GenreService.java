@@ -2,6 +2,7 @@ package com.costa.luiz.tropicalflix.genre;
 
 import com.costa.luiz.tropicalflix.shared.NonExistingEntity;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,10 @@ class GenreService {
         this.repositoryJPA = repositoryJPA;
     }
 
-    public List<GenreDTO> findAll(PageRequest pageable) {
+    public List<GenreDTO> findAll(Pageable pageable) {
         return repositoryJPA.findAll(pageable)
                 .stream()
-                .map(GenreDTO::toDTO)
+                .map(this::toDTO)
                 .toList();
     }
 
@@ -28,18 +29,22 @@ class GenreService {
     }
 
     public GenreDTO save(GenreDTO genre) {
-        return GenreDTO.toDTO(repositoryJPA.save(Genre.GenreBuilder.aGenre()
+        return this.toDTO(repositoryJPA.save(Genre.GenreBuilder.aGenre()
                 .withId(genre.id())
                 .withName(genre.name())
                 .build()));
     }
     public GenreDTO findById(long id) {
         return repositoryJPA.findById(id)
-                .map(GenreDTO::toDTO)
+                .map(this::toDTO)
                 .orElseThrow(NonExistingEntity::new);
     }
 
     public void deleteById(long id) {
         repositoryJPA.deleteById(id);
+    }
+
+    GenreDTO toDTO(Genre genre) {
+        return new GenreDTO(genre.getId(), genre.getName());
     }
 }

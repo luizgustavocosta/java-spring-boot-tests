@@ -25,7 +25,7 @@ class SubscriptionWebController {
         var modelAndView = new ModelAndView("subscribe");
         modelAndView.addObject("subscription",
                 new StartSubscriptionRequest(
-                null, "42,00", "3 meses", "Brasil"));
+                null, "42,00", "90", "Brasil"));
         return modelAndView;
     }
 

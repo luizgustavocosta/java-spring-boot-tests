@@ -19,7 +19,7 @@ class GenreWebController implements ThymeleafPagination {
 
     private static final String REDIRECT_UI_GENRES = "redirect:/ui/genres";
     private static final String MESSAGE = "message";
-    private static final String GÊNERO = "Gênero ";
+    private static final String GENRE = "Gênero ";
     private final GenreService service;
 
     GenreWebController(GenreService service) {
@@ -50,7 +50,7 @@ class GenreWebController implements ThymeleafPagination {
                        @ModelAttribute("genre") GenreDTO genreDTO, RedirectAttributes attributes) {
         try {
             service.save(genreDTO);
-            attributes.addFlashAttribute(MESSAGE, GÊNERO + genreDTO.name() + " atualizado com sucesso!");
+            attributes.addFlashAttribute(MESSAGE, GENRE + genreDTO.name() + " atualizado com sucesso!");
             return REDIRECT_UI_GENRES;
         } catch (Exception exception) {
             throw new UIException(exception);
@@ -78,7 +78,7 @@ class GenreWebController implements ThymeleafPagination {
     String createGenre(@ModelAttribute("genre") GenreDTO genreDTO, RedirectAttributes attributes) {
         try {
             service.save(genreDTO);
-            attributes.addFlashAttribute(MESSAGE, GÊNERO + genreDTO.name() + " criado com sucesso!");
+            attributes.addFlashAttribute(MESSAGE, GENRE + genreDTO.name() + " criado com sucesso!");
             return REDIRECT_UI_GENRES;
         } catch (Exception exception) {
             throw new UIException(exception);
@@ -89,7 +89,7 @@ class GenreWebController implements ThymeleafPagination {
     public String deleteGenre(@PathVariable String id, RedirectAttributes attributes) {
         try {
             service.deleteById(Long.parseLong(id));
-            attributes.addFlashAttribute(MESSAGE, GÊNERO +" excluído com sucesso!");
+            attributes.addFlashAttribute(MESSAGE, GENRE +" excluído com sucesso!");
             return REDIRECT_UI_GENRES;
         } catch (Exception exception) {
             throw new UIException(exception);

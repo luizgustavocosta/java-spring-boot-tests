@@ -81,3 +81,4 @@ https://bootify.io/docs/jpa-relationship-types-with-examples.html
 
 https://github.com/maciejwalkowiak/wiremock-spring-boot
 https://stackoverflow.com/questions/78151993/eof-reached-while-reading-with-spring-restclient-and-wiremock-using-jdkclienth
+https://github.com/Hakky54/log-captor

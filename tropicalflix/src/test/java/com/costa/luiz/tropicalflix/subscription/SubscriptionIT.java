@@ -1,6 +1,5 @@
-package com.costa.luiz.tropicalflix.more.testcontainers;
+package com.costa.luiz.tropicalflix.subscription;
 
-import com.costa.luiz.tropicalflix.subscription.StartSubscriptionRequest;
 import com.costa.luiz.tropicalflix.subscription.external.financial.PaymentRequest;
 import com.costa.luiz.tropicalflix.subscription.external.financial.PaymentResponse;
 import org.junit.jupiter.api.Disabled;

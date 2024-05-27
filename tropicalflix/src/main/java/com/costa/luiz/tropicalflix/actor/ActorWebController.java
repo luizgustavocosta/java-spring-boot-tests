@@ -61,7 +61,7 @@ class ActorWebController implements ThymeleafPagination {
 
         service.save(actor);
 
-        attributes.addFlashAttribute("message", "Ator " + actor + " atualizado com sucesso!");
+        attributes.addFlashAttribute("message", "Ator " + actor.name() + " atualizado com sucesso!");
         return "redirect:/ui/actors";
     }
 

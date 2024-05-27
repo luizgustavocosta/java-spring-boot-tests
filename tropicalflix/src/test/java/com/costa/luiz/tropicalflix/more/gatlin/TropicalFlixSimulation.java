@@ -33,28 +33,30 @@ public class TropicalFlixSimulation extends Simulation {
                     .body(StringBody("#{payload}"))
                     .check(status().is(HttpStatus.CREATED.value())));
 
-    private static final int CONSTANT_USERS_PER_SECOND = 2;
-
     {
-        int seconds = 45;
+        int seconds = 60;
+        int usersGoal = 250;
+        int rampUsersPerSecond = 5;
+        int warmUpUsersPerSecond = 2;
+        int usersPerSecond = 5;
+        int durationOf5 = 5;
+        int durationOf10 = 10;
+
         setUp(
                 moviesScenario.injectOpen(
-//                                rampUsersPerSec(1).to(200).during(Duration.ofSeconds(30)))
-                                constantUsersPerSec(CONSTANT_USERS_PER_SECOND).during(Duration.ofSeconds(5)), // warm up
-                                constantUsersPerSec(4).during(Duration.ofSeconds(10)).randomized(), // are you ready?
-                                rampUsersPerSec(6).to(200).during(Duration.ofSeconds(seconds))) // lezzz go!!!)
+                                constantUsersPerSec(warmUpUsersPerSecond).during(Duration.ofSeconds(durationOf5)),
+                                constantUsersPerSec(usersPerSecond).during(Duration.ofSeconds(durationOf10)).randomized(),
+                                rampUsersPerSec(rampUsersPerSecond).to(usersGoal).during(Duration.ofSeconds(seconds))) 
                         .protocols(httpProtocol),
-//                actorsScenario.injectOpen(rampUsersPerSec(1).to(200).during(Duration.ofSeconds(30)))
                 actorsScenario.injectOpen(
-                                constantUsersPerSec(CONSTANT_USERS_PER_SECOND).during(Duration.ofSeconds(5)), // warm up
-                                constantUsersPerSec(5).during(Duration.ofSeconds(10)).randomized(), // are you ready?
-                                rampUsersPerSec(6).to(200).during(Duration.ofSeconds(seconds))) // lezzz go!!!)
+                                constantUsersPerSec(warmUpUsersPerSecond).during(Duration.ofSeconds(durationOf5)),
+                                constantUsersPerSec(usersPerSecond).during(Duration.ofSeconds(durationOf10)).randomized(),
+                                rampUsersPerSec(rampUsersPerSecond).to(usersGoal).during(Duration.ofSeconds(seconds))) 
                         .protocols(httpProtocol),
                 genresScenario.injectOpen(
-//                                rampUsersPerSec(1).to(200).during(Duration.ofSeconds(30)))
-                                constantUsersPerSec(CONSTANT_USERS_PER_SECOND).during(Duration.ofSeconds(5)), // warm up
-                                constantUsersPerSec(5).during(Duration.ofSeconds(10)).randomized(), // are you ready?
-                                rampUsersPerSec(6).to(200).during(Duration.ofSeconds(seconds))) // lezzz go!!!)
+                                constantUsersPerSec(warmUpUsersPerSecond).during(Duration.ofSeconds(durationOf5)),
+                                constantUsersPerSec(usersPerSecond).during(Duration.ofSeconds(durationOf10)).randomized(),
+                                rampUsersPerSec(rampUsersPerSecond).to(usersGoal).during(Duration.ofSeconds(seconds))) 
                         .protocols(httpProtocol));
     }
     private static final Iterator<Map<String, Object>> feeder =

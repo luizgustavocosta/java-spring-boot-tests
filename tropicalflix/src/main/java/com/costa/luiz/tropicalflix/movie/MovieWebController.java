@@ -29,19 +29,11 @@ class MovieWebController implements ThymeleafPagination {
     ModelAndView moviesByPage(@RequestParam(defaultValue = "1") String page,
                               @RequestParam(defaultValue = "10") String size) {
         try {
-            var movies = service.findAll(PageRequest.of(Integer.parseInt(page) - 1,
-                            Integer.parseInt(size)))
-                    .stream()
-                    .map(MovieDTO::convertToDTOPlainValues)
-                    .toList();
+            var movies = service.findAllForUI(PageRequest.of(Integer.parseInt(page) - 1,
+                            Integer.parseInt(size)));
             long totalItens = service.count();
-            var model = new ModelAndView("movies");
-            model.addObject("currentPage", Integer.parseInt(page));
-            model.addObject("totalItems", totalItens);
-            model.addObject("totalPages", (totalItens / pageSize));
-            model.addObject("pageSize", pageSize);
-            model.addObject("movies", movies);
-            return model;
+            return addPaginationToView("movies", Integer.parseInt(page), totalItens, Integer.parseInt(size),
+                    "movies", movies);
         } catch (Exception exception) {
             throw new UIException(exception);
         }

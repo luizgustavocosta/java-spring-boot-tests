@@ -1,4 +1,4 @@
-package com.costa.luiz.tropicalflix.subscription;
+package com.costa.luiz.tropicalflix.subscription.external.recomendation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,6 +2,7 @@ package com.costa.luiz.tropicalflix.actor;
 
 import com.costa.luiz.tropicalflix.shared.NonExistingEntity;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +16,10 @@ class ActorService {
         this.repositoryJPA = repositoryJPA;
     }
 
-    List<ActorDTO> findAll(PageRequest pageRequest) {
+    List<ActorDTO> findAll(Pageable pageRequest) {
         return repositoryJPA.findAll(pageRequest)
                 .stream()
-                .map(ActorDTO::toDTO)
+                .map(this::toDTO)
                 .toList();
     }
 
@@ -28,7 +29,7 @@ class ActorService {
 
     ActorDTO findById(Long id) {
         return repositoryJPA.findById(id)
-                .map(ActorDTO::toDTO)
+                .map(this::toDTO)
                 .orElseThrow(NonExistingEntity::new);
     }
 
@@ -40,11 +41,7 @@ class ActorService {
         repositoryJPA.save(Actor.ActorBuilder.anActor().withId(actor.id()).withName(actor.name()).build());
     }
 
-    private ActorDTO toDTO() {
-        return null;
-    }
-
-    private Actor toActor(ActorDTO actorDTO) {
-        return null;
+    private ActorDTO toDTO(Actor actor) {
+        return new ActorDTO(actor.getId(), actor.getName());
     }
 }
