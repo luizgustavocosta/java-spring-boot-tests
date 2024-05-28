@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 @RequestMapping("/api/v1/payments")
-public class PaymentController {
+class PaymentController {
 
     private final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 

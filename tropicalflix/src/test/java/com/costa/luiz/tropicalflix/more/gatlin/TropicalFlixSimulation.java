@@ -35,7 +35,7 @@ public class TropicalFlixSimulation extends Simulation {
 
     {
         int seconds = 60;
-        int usersGoal = 250;
+        int usersGoal = 180;
         int rampUsersPerSecond = 5;
         int warmUpUsersPerSecond = 2;
         int usersPerSecond = 5;

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.spy;
 
 class DefaultThymeleafPaginationTest {
 
+    // Helped by Google AI Studio
     private final ThymeleafPagination thymeleafPagination = spy(ThymeleafPagination.class);
 
     @Test
