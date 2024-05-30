@@ -31,15 +31,31 @@ To demonstrate how to use the libraries to test a Spring Boot application.
 - Fake subscription
 
 ## ⚡ Quick Start
-
+- Clone the project and change to project directory
 ```shell
+git clone https://github.com/luizgustavocosta/java-spring-boot-tests.git
+cd java-spring-boot-tests
 ```
+
+- Start the financial-service. This service runs on port 8081
+```shell
+cd financial-service &&  mvn spring-boot:run
+```
+
+- Start the Tropicalflix service using the in-memory database *. This service runs on port 8080
+```shell
+cd tropicalflix && mvn spring-boot:run -Dspring-boot.run.profiles=h2
+```
+* You can choose 3 profiles.
+- h2 (in-memory database)
+- mysql (create a new MySQL database and add data)
+- mysql-image (Use a MySQL image that contains data)
 
 ## Commands
 
 ### Maven
 
-#### Run
+#### Run any module
 
 ```shell
 mvn spring-boot:run
